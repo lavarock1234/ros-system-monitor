@@ -164,7 +164,7 @@ class hdd_monitor():
         self._usage_stat = DiagnosticStatus()
         self._usage_stat.level = DiagnosticStatus.ERROR
         self._usage_stat.hardware_id = hostname
-        self._usage_stat.name = 'HDD Usage (%s)' % diag_hostname
+        self._usage_stat.name = 'HDD Usage'
         self._usage_stat.values = [ KeyValue(key = 'Update Status', value = 'No Data' ),
                                     KeyValue(key = 'Time Since Last Update', value = 'N/A') ]
         self.check_disk_usage()
@@ -365,7 +365,7 @@ if __name__ == '__main__':
         sys.exit(0)
         
     hdd_monitor = hdd_monitor(hostname, options.diag_hostname)
-    rate = rospy.Rate(1.0)
+    rate = rospy.Rate(0.25)
 
     try:
         while not rospy.is_shutdown():

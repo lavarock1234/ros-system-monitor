@@ -96,7 +96,7 @@ class MemMonitor():
         self._usage_timer = None
         
         self._usage_stat = DiagnosticStatus()
-        self._usage_stat.name = 'Memory Usage (%s)' % diag_hostname
+        self._usage_stat.name = 'Memory Usage'
         self._usage_stat.level = 1
         self._usage_stat.hardware_id = hostname
         self._usage_stat.message = 'No Data'
@@ -246,7 +246,7 @@ if __name__ == '__main__':
 
     mem_node = MemMonitor(hostname, options.diag_hostname)
 
-    rate = rospy.Rate(1.0)
+    rate = rospy.Rate(0.25)
     try:
         while not rospy.is_shutdown():
             rate.sleep()

@@ -115,7 +115,7 @@ class CPUMonitor():
 
         # CPU stats
         self._temp_stat = DiagnosticStatus()
-        self._temp_stat.name = 'CPU Temperature (%s)' % diag_hostname
+        self._temp_stat.name = 'CPU Temperature'
         self._temp_stat.level = 1
         self._temp_stat.hardware_id = hostname
         self._temp_stat.message = 'No Data'
@@ -123,7 +123,7 @@ class CPUMonitor():
                                    KeyValue(key = 'Time Since Last Update', value = 'N/A') ]
 
         self._usage_stat = DiagnosticStatus()
-        self._usage_stat.name = 'CPU Usage (%s)' % diag_hostname
+        self._usage_stat.name = 'CPU Usage'
         self._usage_stat.level = 1
         self._usage_stat.hardware_id = hostname
         self._usage_stat.message = 'No Data'
@@ -233,7 +233,7 @@ class CPUMonitor():
                     continue
 
                 speed = words[1].strip().split('.')[0] # Conversion to float doesn't work with decimal
-                vals.append(KeyValue(key = 'Core %d Clock Speed' % index, value = speed+"MHz"))
+                vals.append(KeyValue(key = '%d Clock Speed (MHz)' % index, value = speed))
 
         except Exception, e:
             rospy.logerr(traceback.format_exc())
@@ -532,7 +532,7 @@ if __name__ == '__main__':
 
     cpu_node = CPUMonitor(hostname, options.diag_hostname)
 
-    rate = rospy.Rate(1.0)
+    rate = rospy.Rate(0.25)
     try:
         while not rospy.is_shutdown():
             rate.sleep()
