@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ############################################################################
 #    Copyright (C) 2009, Willow Garage, Inc.                               #
 #    Copyright (C) 2013 by Ralf Kaestner                                   #
@@ -29,12 +29,12 @@
 #    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS     #
 #    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE        #
 #    COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,  #
-#    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  #
+#    INCIDENTAL, SPECIAL as eXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  #
 #    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;      #
 #    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      #
 #    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT    #
 #    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN     #
-#    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE       #
+#    ANY WAY OUT OF THE USE OF THIS SOFTWARE as eVEN IF ADVISED OF THE       #
 #    POSSIBILITY OF SUCH DAMAGE.                                           #
 ############################################################################
 
@@ -77,7 +77,7 @@ def get_hddtemp_data(hostname = 'localhost', port = 7634):
             sock_data = sock_data + newdat
         hdd_sock.close()
 
-        sock_vals = sock_data.split('|')
+        sock_vals = sock_data.split(b'|')
 
         # Format of output looks like ' | DRIVE | MAKE | TEMP | ' 
         idx = 0
@@ -195,10 +195,10 @@ class hdd_monitor():
         for index in range(0, len(drives)):
             temp = temps[index]
             
-            if not unicode(temp).isnumeric() and drives[index] not in REMOVABLE:
+            if not str(temp).isnumeric() and drives[index] not in REMOVABLE:
                 temp_level = DiagnosticStatus.ERROR
                 temp_ok = False
-            elif not unicode(temp).isnumeric() and drives[index] in REMOVABLE:
+            elif not str(temp).isnumeric() and drives[index] in REMOVABLE:
                 temp_level = DiagnosticStatus.OK
                 temp = "Removed"
             else:
@@ -255,14 +255,14 @@ class hdd_monitor():
 
             if (retcode == 0 or retcode == 1):
                 diag_vals.append(KeyValue(key = 'Disk Space Reading', value = 'OK'))
-                rows = stdout.split('\n')
+                rows = stdout.split(b'\n')
                 del rows[0]
                 row_count = 0
                 
                 for row in rows:
                     if len(row.split()) < 2:
                         continue
-                    if unicode(row.split()[0]) == "none":
+                    if str(row.split()[0]) == "none":
                         continue
 
                     row_count += 1
@@ -272,7 +272,7 @@ class hdd_monitor():
                     size = row.split()[1]
                     mount_pt = row.split()[-1]
 
-                    hdd_usage = float(g_use.replace("%", ""))*1e-2
+                    hdd_usage = float(g_use.replace(b"%", b""))*1e-2
                     if (hdd_usage < self._hdd_level_warn):
                         level = DiagnosticStatus.OK
                     elif (hdd_usage < self._hdd_level_error):
@@ -361,7 +361,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('hdd_monitor_%s' % hostname)
     except rospy.exceptions.ROSInitException:
-        print 'HDD monitor is unable to initialize node. Master may not be running.'
+        print('HDD monitor is unable to initialize node. Master may not be running.')
         sys.exit(0)
         
     hdd_monitor = hdd_monitor(hostname, options.diag_hostname)
@@ -373,7 +373,7 @@ if __name__ == '__main__':
             hdd_monitor.publish_stats()
     except KeyboardInterrupt:
         pass
-    except Exception, e:
+    except Exception as e:
         traceback.print_exc()
 
     hdd_monitor.cancel_timers()

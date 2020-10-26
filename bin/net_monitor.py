@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ############################################################################
 #    Copyright (C) 2009, Willow Garage, Inc.                               #
 #    Copyright (C) 2013 by Ralf Kaestner                                   #
@@ -29,12 +29,12 @@
 #    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS     #
 #    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE        #
 #    COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,  #
-#    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  #
+#    INCIDENTAL, SPECIAL as eXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  #
 #    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;      #
 #    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER      #
 #    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT    #
 #    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN     #
-#    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE       #
+#    ANY WAY OUT OF THE USE OF THIS SOFTWARE as eVEN IF ADVISED OF THE       #
 #    POSSIBILITY OF SUCH DAMAGE.                                           #
 ############################################################################
 
@@ -136,7 +136,7 @@ class NetMonitor():
         values.append(KeyValue(key = "\"ifstat -q -S 1 1\" Call Error",
           value = str(retcode)))
         return DiagnosticStatus.ERROR, net_dict[3], values
-      rows = stdout.split('\n')
+      rows = stdout.split(b'\n')
       data = rows[0].split()
       ifaces = []
       for i in range(0, len(data)):
@@ -186,7 +186,7 @@ class NetMonitor():
         (retcode, cmd_out) = get_sys_net_stat(ifaces[i], 'tx_errors')
         if retcode == 0:
           values.append(KeyValue(key = 'Tx Errors', value = cmd_out))
-    except Exception, e:
+    except Exception as e:
       rospy.logerr(traceback.format_exc())
       msg = 'Network Usage Check Error'
       values.append(KeyValue(key = msg, value = str(e)))
@@ -259,7 +259,7 @@ if __name__ == '__main__':
       net_node.publish_stats()
   except KeyboardInterrupt:
     pass
-  except Exception, e:
+  except Exception as e:
     traceback.print_exc()
     rospy.logerr(traceback.format_exc())
   net_node.cancel_timers()
