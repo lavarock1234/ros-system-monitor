@@ -156,15 +156,15 @@ class MemMonitor():
                 level = DiagnosticStatus.ERROR
 
             values.append(KeyValue(key = 'Memory Status', value = mem_dict[level]))
-            values.append(KeyValue(key = 'Total Memory (Physical)', value = total_mem_physical+b"M"))
-            values.append(KeyValue(key = 'Used Memory (Physical)', value = used_mem_physical+b"M"))
-            values.append(KeyValue(key = 'Free Memory (Physical)', value = free_mem_physical+b"M"))
-            values.append(KeyValue(key = 'Total Memory (Swap)', value = total_mem_swap+b"M"))
-            values.append(KeyValue(key = 'Used Memory (Swap)', value = used_mem_swap+b"M"))
-            values.append(KeyValue(key = 'Free Memory (Swap)', value = free_mem_swap+b"M"))
-            values.append(KeyValue(key = 'Total Memory', value = total_mem+b"M"))
-            values.append(KeyValue(key = 'Used Memory', value = used_mem+b"M"))
-            values.append(KeyValue(key = 'Free Memory', value = free_mem+b"M"))
+            values.append(KeyValue(key = 'Total Memory (Physical)', value = str(total_mem_physical)+"M"))
+            values.append(KeyValue(key = 'Used Memory (Physical)', value = str(used_mem_physical)+"M"))
+            values.append(KeyValue(key = 'Free Memory (Physical)', value = str(free_mem_physical)+"M"))
+            values.append(KeyValue(key = 'Total Memory (Swap)', value = str(total_mem_swap)+"M"))
+            values.append(KeyValue(key = 'Used Memory (Swap)', value = str(used_mem_swap)+"M"))
+            values.append(KeyValue(key = 'Free Memory (Swap)', value = str(free_mem_swap)+"M"))
+            values.append(KeyValue(key = 'Total Memory', value = str(total_mem)+"M"))
+            values.append(KeyValue(key = 'Used Memory', value = str(used_mem)+"M"))
+            values.append(KeyValue(key = 'Free Memory', value = str(free_mem)+"M"))
 
             msg = mem_dict[level]
         except Exception as e:

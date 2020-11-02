@@ -233,7 +233,7 @@ class CPUMonitor():
                     continue
 
                 speed = words[1].strip().split(b'.')[0] # Conversion to float doesn't work with decimal
-                vals.append(KeyValue(key = '%d Clock Speed (MHz)' % index, value = speed))
+                vals.append(KeyValue(key = '%d Clock Speed (MHz)' % index, value = str(speed)))
 
         except Exception as e:
             rospy.logerr(traceback.format_exc())

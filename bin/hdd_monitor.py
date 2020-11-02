@@ -281,17 +281,17 @@ class hdd_monitor():
                         level = DiagnosticStatus.ERROR
 
                     diag_vals.append(KeyValue(
-                            key = 'Disk %d Name' % row_count, value = name))
+                            key = 'Disk %d Name' % row_count, value = str(name)))
                     diag_vals.append(KeyValue(
-                            key = 'Disk %d Size' % row_count, value = size))
+                            key = 'Disk %d Size' % row_count, value = str(size)))
                     diag_vals.append(KeyValue(
-                            key = 'Disk %d Available' % row_count, value = g_available))
+                            key = 'Disk %d Available' % row_count, value = str(g_available)))
                     diag_vals.append(KeyValue(
-                            key = 'Disk %d Use' % row_count, value = g_use))
+                            key = 'Disk %d Use' % row_count, value = str(g_use)))
                     diag_vals.append(KeyValue(
                             key = 'Disk %d Status' % row_count, value = stat_dict[level]))
                     diag_vals.append(KeyValue(
-                            key = 'Disk %d Mount Point' % row_count, value = mount_pt))
+                            key = 'Disk %d Mount Point' % row_count, value = str(mount_pt)))
 
                     diag_level = max(diag_level, level)
                     diag_message = usage_dict[diag_level]
